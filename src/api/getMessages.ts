@@ -1,6 +1,17 @@
-export default async function getMessages() {
+import type { RawMessage } from "@/types/message";
+
+type GetMessageReturn = {
+  error: string | null;
+  data: RawMessage[];
+};
+
+export default async function getMessages(): Promise<GetMessageReturn> {
   const res = await fetch(`${process.env.API_BASE}/messages`, {
     method: "GET",
+    headers: {
+      "CF-Access-Client-Id": process.env.CF_ACCESS_CLIENT_ID!,
+      "CF-Access-Client-Secret": process.env.CF_ACCESS_CLIENT_SECRET!,
+    },
   });
 
   if (!res.ok) {
@@ -10,6 +21,6 @@ export default async function getMessages() {
     };
   }
 
-  const data = await res.json();
+  const data: RawMessage[] = await res.json();
   return { error: null, data };
 }

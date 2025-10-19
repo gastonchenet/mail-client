@@ -1,0 +1,68 @@
+.attachment {
+  height: 160px;
+  width: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 1px solid #cccccc;
+  overflow: hidden;
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .attachmentLabel {
+    position: absolute;
+    inset: 0;
+    padding: 0.75rem;
+    color: #ffffffee;
+    background: linear-gradient(
+      to top,
+      #00000099 0%,
+      #00000099 50%,
+      #00000000 100%
+    );
+    background-size: 100% 200%;
+    background-position: 0 0%;
+    display: flex;
+    gap: 0.1rem;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.2s ease;
+    cursor: pointer;
+
+    .fileName {
+      transform: translateY(17px);
+      transition: 0.2s ease;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .fileSize {
+      font-size: 0.8rem;
+      color: #ffffff88;
+      transform: translateY(17px);
+      opacity: 0;
+      transition: 0.2s ease;
+    }
+
+    &:hover {
+      background-position: 0 100%;
+
+      .fileName {
+        transform: translateY(0px);
+      }
+
+      .fileSize {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+@use "../app/variables.scss" as variables;
+
+.listElement {
+  list-style: none;
+  display: flex;
+  width: 100%;
+
+  .mail {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid variables.$border-secondary;
+    transition: 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+    align-items: center;
+
+    &:hover {
+      background: variables.$background-secondary;
+    }
+
+    .starButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      height: 1.2rem;
+      width: 1.2rem;
+      border-radius: 50%;
+      transition: 0.2s ease;
+
+      &:hover {
+        background: variables.$background-tertiary;
+      }
+
+      .star {
+        fill: variables.$border-tertiary;
+      }
+
+      .starred {
+        fill: #f5b52c;
+      }
+    }
+
+    .sender {
+      width: 12dvw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-right: 1rem;
+      color: variables.$text-secondary;
+    }
+
+    .preview {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 70%;
+      color: variables.$text-tertiary;
+
+      .subject {
+        color: variables.$text-primary;
+      }
+    }
+
+    .date {
+      margin-left: auto;
+      color: variables.$text-tertiary;
+      font-size: 0.8rem;
+    }
+  }
+}

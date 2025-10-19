@@ -1,0 +1,11 @@
+@use "../app/variables.scss" as variables;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-left: 1px solid variables.$border-primary;
+  border-top: 1px solid variables.$border-primary;
+  overflow: hidden;
+  border-top-left-radius: 0.5rem;
+}

@@ -1,0 +1,21 @@
+@use "./variables.scss" as variables;
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .navbar {
+    height: 4rem;
+  }
+
+  .content {
+    display: flex;
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      width: 18rem;
+      height: 100dvh;
+    }
+  }
+}
