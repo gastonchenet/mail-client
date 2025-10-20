@@ -1,3 +1,5 @@
+@use "../app/variables.scss" as variables;
+
 .attachment {
   height: 160px;
   width: 240px;
@@ -5,7 +7,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  border: 1px solid #cccccc;
+  border: 1px solid variables.$border-primary;
   overflow: hidden;
 
   .image {

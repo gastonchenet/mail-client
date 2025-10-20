@@ -1,0 +1,22 @@
+.addresses {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+
+  .addressRow {
+    display: flex;
+    gap: 1rem;
+
+    .addressLabel {
+      &::after {
+        content: ":";
+      }
+    }
+  }
+}
+
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

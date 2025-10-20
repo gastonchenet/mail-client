@@ -1,0 +1,17 @@
+.navbar {
+  height: 4rem;
+  padding-inline: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  .appName {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .icon {
+      opacity: 0.5;
+    }
+  }
+}

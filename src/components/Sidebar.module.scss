@@ -1,0 +1,33 @@
+@use "../app/variables.scss" as variables;
+@use "sass:color" as color;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 18rem;
+  height: 100dvh;
+  padding: 1rem;
+
+  .sendMailButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 1rem;
+    width: 100%;
+    background: variables.$background-tertiary;
+    color: variables.$text-primary;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s ease;
+    gap: 0.7rem;
+
+    &:hover {
+      background: color.adjust(variables.$background-tertiary, $lightness: +5%);
+    }
+
+    .icon {
+      opacity: 0.25;
+    }
+  }
+}

@@ -2,6 +2,8 @@ import MailList from "@/components/MessageList";
 import styles from "./page.module.scss";
 import getMessages from "@/api/getMessages";
 import Link from "next/link";
+import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar";
 
 export default async function Home() {
   const messages = await getMessages();
@@ -9,11 +11,9 @@ export default async function Home() {
 
   return (
     <main className={styles.container}>
-      <nav className={styles.navbar}></nav>
+      <Navbar />
       <div className={styles.content}>
-        <aside className={styles.sidebar}>
-          <Link href="/s">Send a mail</Link>
-        </aside>
+        <Sidebar />
         <MailList messages={messages.data} />
       </div>
     </main>

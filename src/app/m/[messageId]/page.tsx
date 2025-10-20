@@ -4,6 +4,7 @@ import { simpleParser } from "mailparser";
 import moment from "moment";
 import Link from "next/link";
 import styles from "./page.module.scss";
+import Address from "@/components/Address";
 
 type Params = {
   messageId: string;
@@ -28,23 +29,27 @@ export default async function Page({ params }: PageProps) {
     return (
       <div>
         <Link href="/">Back</Link>
-        <div>
-          <span>From</span>
-          {from?.map((u) => (
-            <span key={u.address}>
-              {u.name}
-              <span>{u.address}</span>
-            </span>
-          ))}
-        </div>
-        <div>
-          <span>To</span>
-          {to?.map((u) => (
-            <span key={u.address}>
-              {u.name}
-              <span>{u.address}</span>
-            </span>
-          ))}
+        <div className={styles.addresses}>
+          <div className={styles.addressRow}>
+            <span className={styles.addressLabel}>From</span>
+            {from?.map((u) => (
+              <Address
+                name={u.name}
+                email={u.address ?? u.name}
+                key={u.address ?? u.name}
+              />
+            ))}
+          </div>
+          <div className={styles.addressRow}>
+            <span className={styles.addressLabel}>To</span>
+            {to?.map((u) => (
+              <Address
+                name={u.name}
+                email={u.address ?? u.name}
+                key={u.address ?? u.name}
+              />
+            ))}
+          </div>
         </div>
         <div
           dangerouslySetInnerHTML={{
