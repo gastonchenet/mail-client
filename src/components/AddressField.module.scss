@@ -1,0 +1,49 @@
+@use "../app/variables.scss" as variables;
+
+.addresses {
+  padding: 0.5rem;
+  flex-direction: column;
+  margin-left: 0.5rem;
+  width: 100%;
+
+  .enteredAddresses {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:not(:empty) {
+      margin-bottom: 0.75rem;
+    }
+
+    .address {
+      font-size: 0.8rem;
+      color: variables.$text-secondary;
+      background: variables.$background-tertiary;
+      height: 1.4rem;
+      padding-inline: 0.6rem;
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+      border-radius: 0.7rem;
+
+      .deleteAddress {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        color: variables.$text-tertiary;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .input {
+    background: transparent;
+    border: none;
+    color: variables.$text-secondary;
+    height: 1.4rem;
+    width: 100%;
+  }
+}

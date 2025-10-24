@@ -1,8 +1,10 @@
 import type { User } from "@/types/message";
 
 export default function parseUser(rawUser: string): User {
-  return {
-    name: rawUser.match(/"(.*)"/)?.[1] ?? null,
-    email: rawUser.match(/<(.*)>/)?.[1] ?? rawUser,
-  };
+  const matches = rawUser.match(/^"?([^"<>]*)"?\s*<(.*)>$/);
+  if (!matches) return { name: null, email: rawUser.trim() };
+
+  const name = matches?.[1].trim() || null;
+  const email = matches?.[2] ?? rawUser.trim();
+  return { name, email };
 }

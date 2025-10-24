@@ -1,0 +1,43 @@
+type Options = {
+  to: string[];
+  cc: string[];
+  subject: string;
+  text: string;
+  html: string;
+  attachments: File[];
+};
+
+export default async function sendMessage(options: Options) {
+  const formData = new FormData();
+
+  formData.append(
+    "from",
+    JSON.stringify({
+      username: "Gaston Chenet",
+      email: "contact@gche.me",
+    })
+  );
+
+  if (options.to.length < 1) return "You should enter at least one recipient.";
+  if (options.subject === "") return "You should enter a subject.";
+  if (options.attachments.length === 0 && options.text === "")
+    return "You should enter some content to the email.";
+
+  options.to.forEach((to) => formData.append("to", to));
+  options.cc.forEach((cc) => formData.append("cc", cc));
+
+  formData.append("subject", options.subject);
+  formData.append("text", options.text);
+  formData.append("html", options.html);
+
+  options.attachments.forEach((a) => formData.append("attachment", a));
+
+  const res = await fetch("/api/send", {
+    method: "POST",
+    body: formData,
+  });
+
+  console.log(await res.text());
+
+  return res.ok ? null : "Error while sending email.";
+}

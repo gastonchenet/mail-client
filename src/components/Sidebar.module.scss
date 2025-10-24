@@ -6,13 +6,13 @@
   flex-direction: column;
   width: 18rem;
   height: 100dvh;
-  padding: 1rem;
+  padding-inline: 1rem;
 
   .sendMailButton {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-block: 1rem;
+    padding-block: 0.75rem;
     width: 100%;
     background: variables.$background-tertiary;
     color: variables.$text-primary;

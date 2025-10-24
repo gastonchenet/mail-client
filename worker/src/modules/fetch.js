@@ -1,6 +1,5 @@
 import { jwtVerify, createRemoteJWKSet } from "jose";
 import messages from "../routes/messages";
-import send from "../routes/send";
 
 export default async function fetch(request, env, _ctx) {
   const token = request.headers.get("cf-access-jwt-assertion");
@@ -25,7 +24,6 @@ export default async function fetch(request, env, _ctx) {
     let response = null;
 
     response ||= await messages.call(request, env);
-    response ||= await send.call(request, env);
     response ||= new Response("Not Found", { status: 404 });
 
     return response;

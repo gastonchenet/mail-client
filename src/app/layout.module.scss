@@ -1,0 +1,20 @@
+@use "./variables.scss" as variables;
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    display: flex;
+  }
+
+  .children {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-left: 1px solid variables.$border-primary;
+    border-top: 1px solid variables.$border-primary;
+    overflow: hidden;
+    border-top-left-radius: 0.5rem;
+  }
+}

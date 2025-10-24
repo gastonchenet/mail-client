@@ -9,6 +9,7 @@
   position: relative;
   border: 1px solid variables.$border-primary;
   overflow: hidden;
+  border-radius: 0.5rem;
 
   .image {
     width: 100%;
@@ -31,39 +32,78 @@
     background-position: 0 0%;
     display: flex;
     gap: 0.1rem;
-    flex-direction: column;
-    justify-content: flex-end;
+    align-items: flex-end;
     transition: 0.2s ease;
     cursor: pointer;
 
-    .fileName {
-      transform: translateY(17px);
-      transition: 0.2s ease;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+    .labels {
       display: flex;
-      gap: 0.5rem;
-    }
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
 
-    .fileSize {
-      font-size: 0.8rem;
-      color: #ffffff88;
-      transform: translateY(17px);
-      opacity: 0;
-      transition: 0.2s ease;
-    }
+      .textContent {
+        display: flex;
+        flex-direction: column;
+        width: 78%;
 
-    &:hover {
-      background-position: 0 100%;
+        .fileName {
+          transform: translateY(17px);
+          transition: 0.2s ease;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          display: flex;
+          gap: 0.5rem;
+        }
 
-      .fileName {
-        transform: translateY(0px);
+        .fileSize {
+          font-size: 0.8rem;
+          color: #ffffff88;
+          transform: translateY(17px);
+          opacity: 0;
+          transition: 0.2s ease;
+        }
       }
 
-      .fileSize {
-        transform: translateY(0px);
+      .downloadButton {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateX(10px);
+        transition: 0.2s ease;
+
+        .icon {
+          fill: variables.$text-secondary;
+        }
+
+        &:hover {
+          background: variables.$background-secondary;
+        }
+      }
+    }
+
+    &:hover .labels {
+      .textContent {
+        background-position: 0 100%;
+
+        .fileName {
+          transform: translateY(0px);
+        }
+
+        .fileSize {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+
+      .downloadButton {
         opacity: 1;
+        transform: translateX(0);
       }
     }
   }

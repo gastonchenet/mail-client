@@ -2,6 +2,7 @@ import formatBytes from "@/utils/formatBytes";
 import type { Attachment } from "mailparser";
 import styles from "./MessageAttachment.module.scss";
 import { IoKeySharp } from "react-icons/io5";
+import { GoDownload } from "react-icons/go";
 
 type MessageAttachmentProps = {
   data: Attachment;
@@ -19,13 +20,20 @@ export default function MessageAttachment({ data }: MessageAttachmentProps) {
         />
       )}
       <div className={styles.attachmentLabel}>
-        <p className={styles.fileName}>
-          {/\.key$/.test(data.filename ?? "") ? (
-            <IoKeySharp size={18} className={styles.icon} color="#3f3128" />
-          ) : null}
-          {data.filename}
-        </p>
-        <p className={styles.fileSize}>{formatBytes(data.size)}</p>
+        <div className={styles.labels}>
+          <div className={styles.textContent}>
+            <p className={styles.fileName}>
+              {/\.key$/.test(data.filename ?? "") ? (
+                <IoKeySharp size={18} className={styles.icon} color="#3f3128" />
+              ) : null}
+              {data.filename}
+            </p>
+            <p className={styles.fileSize}>{formatBytes(data.size)}</p>
+          </div>
+          <button className={styles.downloadButton}>
+            <GoDownload size={20} className={styles.icon} />
+          </button>
+        </div>
       </div>
     </div>
   );

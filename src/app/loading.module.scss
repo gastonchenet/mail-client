@@ -1,0 +1,28 @@
+@use "./variables.scss" as variables;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 2rem;
+  padding-bottom: 5dvh;
+
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    .loadingLabel {
+      font-weight: 400;
+      color: variables.$text-secondary;
+    }
+
+    .loadingText {
+      color: variables.$text-tertiary;
+    }
+  }
+}

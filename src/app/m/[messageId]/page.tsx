@@ -5,6 +5,9 @@ import moment from "moment";
 import Link from "next/link";
 import styles from "./page.module.scss";
 import Address from "@/components/Address";
+import { GoStar, GoArrowLeft, GoTrash } from "react-icons/go";
+import React from "react";
+import parseMessageContent from "@/utils/parseMessageContent";
 
 type Params = {
   messageId: string;
@@ -27,8 +30,24 @@ export default async function Page({ params }: PageProps) {
       : parsed.to?.value ?? [];
 
     return (
-      <div>
-        <Link href="/">Back</Link>
+      <div className={styles.container}>
+        <div className={styles.buttons}>
+          <Link href="/" className={styles.action}>
+            <GoArrowLeft />
+          </Link>
+          <button className={styles.action}>
+            <GoStar />
+          </button>
+          <button className={styles.action}>
+            <GoTrash />
+          </button>
+        </div>
+        <div className={styles.metadata}>
+          <h2 className={styles.subject}>{parsed.subject}</h2>
+          <p className={styles.date}>
+            {moment(parsed.date?.toISOString()).format("dddd D MMMM YYYY")}
+          </p>
+        </div>
         <div className={styles.addresses}>
           <div className={styles.addressRow}>
             <span className={styles.addressLabel}>From</span>
@@ -51,19 +70,30 @@ export default async function Page({ params }: PageProps) {
             ))}
           </div>
         </div>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: parsed.html || parsed.textAsHtml || "",
-          }}
-        />
-        <div>
-          {moment(parsed.date?.toISOString()).format("dddd D MMMM YYYY")}
+        <div className={styles.body}>
+          <div className={styles.content}>
+            {parseMessageContent(parsed.html || parsed.textAsHtml || "", {
+              ul: styles.ul,
+              li: styles.li,
+              hr: styles.hr,
+            })}
+          </div>
         </div>
-        <div className={styles.attachments}>
-          {parsed.attachments.map((a) => (
-            <MessageAttachment data={a} key={a.cid} />
-          ))}
-        </div>
+        {parsed.attachments.length > 0 && (
+          <React.Fragment>
+            <h2 className={styles.attachmentsLabel}>
+              Attachments{" "}
+              <span className={styles.count}>
+                ({parsed.attachments.length})
+              </span>
+            </h2>
+            <div className={styles.attachments}>
+              {parsed.attachments.map((a) => (
+                <MessageAttachment data={a} key={a.cid} />
+              ))}
+            </div>
+          </React.Fragment>
+        )}
       </div>
     );
   } catch (e) {

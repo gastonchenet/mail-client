@@ -21,27 +21,37 @@
       background: variables.$background-secondary;
     }
 
-    .starButton {
+    .buttons {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      border: none;
-      height: 1.2rem;
-      width: 1.2rem;
-      border-radius: 50%;
-      transition: 0.2s ease;
+      gap: 0.5rem;
 
-      &:hover {
-        background: variables.$background-tertiary;
-      }
+      .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        height: 1.2rem;
+        width: 1.2rem;
+        border-radius: 50%;
+        transition: 0.2s ease;
 
-      .star {
-        fill: variables.$border-tertiary;
-      }
+        &:hover {
+          background: variables.$background-tertiary;
+        }
 
-      .starred {
-        fill: #f5b52c;
+        .star,
+        .selector {
+          fill: variables.$border-tertiary;
+        }
+
+        .starred {
+          fill: #f5b52c;
+        }
+
+        .selected {
+          fill: variables.$accent;
+        }
       }
     }
 
@@ -70,6 +80,7 @@
       margin-left: auto;
       color: variables.$text-tertiary;
       font-size: 0.8rem;
+      white-space: nowrap;
     }
   }
 }

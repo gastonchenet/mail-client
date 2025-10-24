@@ -1,6 +1,9 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import styles from "./Address.module.scss";
 import { FaPen } from "react-icons/fa";
+import React from "react";
 
 type AddressProps = {
   name: string | null;
@@ -8,11 +11,18 @@ type AddressProps = {
 };
 
 export default function Address({ name, email }: AddressProps) {
+  const router = useRouter();
+
+  const click = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push(`/s?to=${email}`);
+  };
+
   return (
-    <Link className={styles.name} href={`/s?to=${email}`}>
+    <button className={styles.name} onClick={click}>
       <span className={styles.content}>{name || email}</span>
-      <FaPen className={styles.icon} size={12} />
+      <FaPen className={styles.icon} size={11} />
       {!!name && <span className={styles.email}>{email}</span>}
-    </Link>
+    </button>
   );
 }
