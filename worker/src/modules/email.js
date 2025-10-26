@@ -16,8 +16,8 @@ export default async function email(message, env, _ctx) {
       .replace(/Content-Transfer-Encoding:.+?[\r\n]+/gi, "")
       .replace(/<[^>]+>/g, "")
       .replace(/\s+/g, " ")
-      .trim()
-      .substring(0, 200);
+      .substring(0, 200)
+      .trim();
 
     const arrayBuffer = await rawResponseClone.arrayBuffer();
     const uint8 = new Uint8Array(arrayBuffer);

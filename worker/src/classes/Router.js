@@ -14,6 +14,8 @@ export default class Router {
     let response = null;
 
     this.callbacks.find((c) => {
+      if (request.method !== c.method) return null;
+
       let regex;
 
       if (c.pathname instanceof RegExp) {

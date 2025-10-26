@@ -3,11 +3,13 @@ import type { Moment } from "moment";
 export type RawMessage = {
   id: string;
   sender: string;
-  recipients: string;
   subject: string;
   preview: string;
+  starred: boolean;
+  seen: boolean;
   date: string;
   created_at: string;
+  deleted_at: string;
 };
 
 export type User = {
@@ -18,9 +20,11 @@ export type User = {
 export type Message = {
   id: string;
   sender: User;
-  recipients: User[];
   subject: string;
   preview: string;
+  starred: boolean;
+  seen: boolean;
   date: Moment;
   created_at: Moment;
+  deleted_at: Moment;
 };

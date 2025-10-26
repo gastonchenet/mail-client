@@ -15,7 +15,7 @@ export default function Address({ name, email }: AddressProps) {
 
   const click = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.push(`/s?to=${email}`);
+    router.push(`/send?to=${email}`);
   };
 
   return (

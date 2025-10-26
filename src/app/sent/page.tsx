@@ -4,7 +4,7 @@ import MessageInline from "@/components/MessageInline";
 import { USER_EMAIL } from "@/constants/User";
 
 export default async function Page() {
-  const messages = await getMessages(null, { exclude: [USER_EMAIL] });
+  const messages = await getMessages(null, { include: [USER_EMAIL] });
   if (messages.error) return messages.error;
 
   return (

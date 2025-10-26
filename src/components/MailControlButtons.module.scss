@@ -1,0 +1,26 @@
+@use "../app/variables.scss" as variables;
+@use "sass:color" as color;
+
+.buttons {
+  display: flex;
+  gap: 0.75rem;
+
+  .action {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: variables.$background-tertiary;
+    color: #ffffff;
+    fill: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: 0.2 ease;
+
+    &:hover {
+      background: color.adjust(variables.$background-tertiary, $lightness: +5%);
+    }
+  }
+}

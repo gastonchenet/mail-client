@@ -5,24 +5,18 @@ import parseMessage from "@/utils/parseMessage";
 import Link from "next/link";
 import styles from "./MessageInline.module.scss";
 import moment from "moment";
-import { GoStar, GoStarFill } from "react-icons/go";
 import React, { useState } from "react";
 import Address from "./Address";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import StarButton from "./StarButton";
 
 type MessageInlineProps = {
   data: RawMessage;
 };
 
 export default function MessageInline({ data }: MessageInlineProps) {
-  const [starred, setStarred] = useState(false);
   const [selected, setSelected] = useState(false);
   const message = parseMessage(data);
-
-  const toggleStar = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setStarred((prev) => !prev);
-  };
 
   const toggleSelected = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -30,23 +24,25 @@ export default function MessageInline({ data }: MessageInlineProps) {
   };
 
   return (
-    <li className={styles.listElement}>
-      <Link href={`/m/${message.id}`} className={styles.mail}>
+    <li className={data.seen ? styles.listElement : styles.listElementUnseen}>
+      <Link
+        href={`/mail/${message.id}`}
+        className={selected ? styles.selectedMail : styles.mail}
+      >
         <div className={styles.buttons}>
           <button className={styles.button} onClick={toggleSelected}>
             {selected ? (
-              <MdCheckBox className={styles.selected} />
+              <MdCheckBox className={styles.selected} size={16} />
             ) : (
-              <MdCheckBoxOutlineBlank className={styles.selector} />
+              <MdCheckBoxOutlineBlank className={styles.selector} size={16} />
             )}
           </button>
-          <button className={styles.button} onClick={toggleStar}>
-            {starred ? (
-              <GoStarFill className={styles.starred} />
-            ) : (
-              <GoStar className={styles.star} />
-            )}
-          </button>
+          <StarButton
+            messageId={data.id}
+            initialValue={data.starred}
+            size={16}
+            className={styles.button}
+          />
         </div>
         <Address name={message.sender.name} email={message.sender.email} />
         <p className={styles.preview}>

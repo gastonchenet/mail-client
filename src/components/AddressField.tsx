@@ -4,14 +4,15 @@ import { VscClose } from "react-icons/vsc";
 
 type AddressFieldProps = {
   onChange?: (addresses: Set<string>) => void;
+  value?: Set<string>;
 };
 
-export default function AddressField({ onChange }: AddressFieldProps) {
+export default function AddressField({ onChange, value }: AddressFieldProps) {
   const [addresses, setAddresses] = useState<Set<string>>(new Set());
   const [currentAdress, setCurrentAddress] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => onChange?.(addresses), [addresses]);
+  useEffect(() => value && setAddresses(value), [value]);
 
   const changeCurrentAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentAddress(e.target.value.trim().toLowerCase());
@@ -19,7 +20,9 @@ export default function AddressField({ onChange }: AddressFieldProps) {
 
   const validate = () => {
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(currentAdress)) return;
-    setAddresses((prev) => new Set(prev).add(currentAdress));
+    const newAddresses = new Set(addresses).add(currentAdress);
+    setAddresses(newAddresses);
+    onChange?.(newAddresses);
     setCurrentAddress("");
   };
 
@@ -28,11 +31,10 @@ export default function AddressField({ onChange }: AddressFieldProps) {
   };
 
   const removeAddress = (address: string) => {
-    setAddresses((prev) => {
-      const newSet = new Set(prev);
-      newSet.delete(address);
-      return newSet;
-    });
+    const newAddresses = new Set(addresses);
+    newAddresses.delete(address);
+    setAddresses(newAddresses);
+    onChange?.(newAddresses);
   };
 
   return (

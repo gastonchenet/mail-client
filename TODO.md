@@ -1,0 +1,10 @@
+- [x] Sending mails
+- [x] Receiving mails
+- [x] Displaying mails
+- [ ] Trash page
+- [x] Starred page
+- [x] Sent page
+- [ ] Dynamic email creation
+- [ ] Email tracking option
+- [ ] Real-time email reception
+- [ ] Email searching

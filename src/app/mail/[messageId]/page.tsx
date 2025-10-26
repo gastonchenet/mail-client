@@ -2,12 +2,11 @@ import getMessage from "@/api/getMessage";
 import MessageAttachment from "@/components/MessageAttachment";
 import { simpleParser } from "mailparser";
 import moment from "moment";
-import Link from "next/link";
 import styles from "./page.module.scss";
 import Address from "@/components/Address";
-import { GoStar, GoArrowLeft, GoTrash } from "react-icons/go";
 import React from "react";
 import parseMessageContent from "@/utils/parseMessageContent";
+import MailControlButtons from "@/components/MailControlButtons";
 
 type Params = {
   messageId: string;
@@ -31,17 +30,7 @@ export default async function Page({ params }: PageProps) {
 
     return (
       <div className={styles.container}>
-        <div className={styles.buttons}>
-          <Link href="/" className={styles.action}>
-            <GoArrowLeft />
-          </Link>
-          <button className={styles.action}>
-            <GoStar />
-          </button>
-          <button className={styles.action}>
-            <GoTrash />
-          </button>
-        </div>
+        <MailControlButtons message={message.data!.metadata} />
         <div className={styles.metadata}>
           <h2 className={styles.subject}>{parsed.subject}</h2>
           <p className={styles.date}>

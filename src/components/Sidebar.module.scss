@@ -30,4 +30,48 @@
       opacity: 0.25;
     }
   }
+
+  .linkList {
+    margin-block: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+
+    .selector {
+      position: absolute;
+      padding-inline: 1.25rem;
+      border-radius: 1.25rem;
+      height: 2.5rem;
+      width: 100%;
+      border: 1px solid rgba(variables.$accent, 0.35);
+      background: rgba(variables.$accent, 0.05);
+      pointer-events: none;
+      transition: 0.2s ease;
+    }
+
+    .listItem {
+      list-style: none;
+      display: flex;
+
+      .link {
+        color: variables.$text-secondary;
+        padding-inline: 1.25rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: variables.$background-secondary;
+        font-size: 0.9rem;
+        width: 100%;
+        border-radius: 1.25rem;
+        transition: 0.2s ease;
+
+        &:hover {
+          text-decoration: none;
+          background: variables.$background-tertiary;
+        }
+      }
+    }
+  }
 }

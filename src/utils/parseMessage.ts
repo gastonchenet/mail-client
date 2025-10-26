@@ -6,9 +6,9 @@ export default function parseMessage(message: RawMessage): Message {
   return {
     id: message.id,
     sender: parseUser(message.sender),
-    recipients: message.recipients.split(/;\s+/g).map(parseUser),
     subject: message.subject,
     preview: message.preview,
+    starred: message.starred,
     date: moment(message.date),
     created_at: moment(message.created_at),
   };

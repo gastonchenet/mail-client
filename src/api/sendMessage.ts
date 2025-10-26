@@ -1,3 +1,5 @@
+import { USER_EMAIL, USER_NAME } from "@/constants/User";
+
 type Options = {
   to: string[];
   cc: string[];
@@ -13,8 +15,8 @@ export default async function sendMessage(options: Options) {
   formData.append(
     "from",
     JSON.stringify({
-      username: "Gaston Chenet",
-      email: "contact@gche.me",
+      username: USER_NAME,
+      email: USER_EMAIL,
     })
   );
 
@@ -32,12 +34,10 @@ export default async function sendMessage(options: Options) {
 
   options.attachments.forEach((a) => formData.append("attachment", a));
 
-  const res = await fetch("/api/send", {
+  const res = await fetch("/api/messages", {
     method: "POST",
     body: formData,
   });
-
-  console.log(await res.text());
 
   return res.ok ? null : "Error while sending email.";
 }

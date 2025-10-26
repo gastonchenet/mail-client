@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import {
   BaseEditor,
   createEditor,
@@ -41,7 +41,7 @@ import Link from "next/link";
 import { toHTMLContent, toTextContent } from "@/utils/parseHtmlContent";
 import sendMessage from "@/api/sendMessage";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type CustomText = {
   text: string;
@@ -190,6 +190,8 @@ function BlockButton({ Icon, format }: BlockButtonProps) {
 
 export default function Page() {
   const router = useRouter();
+  const params = useSearchParams();
+
   const [sending, setSending] = useState(false);
   const [attachments, setAttachments] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -200,6 +202,15 @@ export default function Page() {
   const [toAddresses, setToAddresses] = useState<Set<string>>(new Set());
   const [ccAddresses, setCcAddresses] = useState<Set<string>>(new Set());
   const [subject, setSubject] = useState("");
+
+  useLayoutEffect(() => {
+    const recipient = params.get("to");
+
+    if (recipient) {
+      router.replace(window.location.pathname);
+      toAddresses.add(recipient);
+    }
+  }, []);
 
   const editor = useMemo(() => withReact(createEditor()), []);
 
@@ -252,11 +263,11 @@ export default function Page() {
         <div className={styles.fieldRow}>
           <div className={styles.field}>
             <label className={styles.label}>To:</label>
-            <AddressField onChange={setToAddresses} />
+            <AddressField onChange={setToAddresses} value={toAddresses} />
           </div>
           <div className={styles.field}>
             <label className={styles.label}>Cc:</label>
-            <AddressField onChange={setCcAddresses} />
+            <AddressField onChange={setCcAddresses} value={ccAddresses} />
           </div>
         </div>
         <div className={styles.field}>

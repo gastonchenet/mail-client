@@ -1,11 +1,13 @@
 @use "../app/variables.scss" as variables;
 
-.listElement {
+.listElement,
+.listElementUnseen {
   list-style: none;
   display: flex;
   width: 100%;
 
-  .mail {
+  .mail,
+  .selectedMail {
     display: flex;
     gap: 1rem;
     padding: 0.75rem 1rem;
@@ -35,18 +37,14 @@
         width: 1.2rem;
         border-radius: 50%;
         transition: 0.2s ease;
+        fill: variables.$border-tertiary;
 
         &:hover {
           background: variables.$background-tertiary;
         }
 
-        .star,
         .selector {
           fill: variables.$border-tertiary;
-        }
-
-        .starred {
-          fill: #f5b52c;
         }
 
         .selected {
@@ -81,6 +79,41 @@
       color: variables.$text-tertiary;
       font-size: 0.8rem;
       white-space: nowrap;
+    }
+  }
+
+  .selectedMail {
+    background: rgba(variables.$accent, 0.1);
+
+    &:hover {
+      background: rgba(variables.$accent, 0.15);
+    }
+  }
+
+  &:last-child {
+    .mail,
+    .selectedMail {
+      border-bottom: none;
+    }
+  }
+}
+
+.listElementUnseen {
+  .mail,
+  .selectedMail {
+    font-weight: 500;
+    background: variables.$background-secondary;
+
+    &:hover {
+      background: variables.$background-tertiary;
+    }
+  }
+
+  .selectedMail {
+    background: rgba(variables.$accent, 0.12);
+
+    &:hover {
+      background: rgba(variables.$accent, 0.16);
     }
   }
 }
