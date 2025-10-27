@@ -16,5 +16,10 @@
     border-top: 1px solid variables.$border-primary;
     overflow: hidden;
     border-top-left-radius: 0.5rem;
+
+    @media screen and (max-width: 768px) {
+      border-top-left-radius: 0;
+      border-left: none;
+    }
   }
 }

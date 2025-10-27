@@ -10,6 +10,10 @@
   scrollbar-width: thin;
   height: calc(100dvh - 4rem);
 
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+
   .metadata {
     display: flex;
     align-items: center;

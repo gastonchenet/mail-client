@@ -1,12 +1,15 @@
+@use "../app/variables.scss" as variables;
+
 .navbar {
   height: 4rem;
-  padding-inline: 1.5rem;
+  padding-inline: 1rem;
   display: flex;
   align-items: center;
 
   .appNameLink {
     color: inherit;
     text-decoration: none;
+    margin-left: 0.5rem;
 
     .appName {
       font-size: 1.5rem;
@@ -17,6 +20,44 @@
       .icon {
         opacity: 0.5;
       }
+    }
+  }
+
+  .hamburgerContainer {
+    display: none;
+    margin-left: auto;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+
+.links,
+.visibleLinks {
+  display: none;
+  position: fixed;
+  top: 4rem;
+  right: 0;
+  bottom: 0;
+  padding: 1rem;
+  background: variables.$background-primary;
+  border-left: 1px solid variables.$border-primary;
+  z-index: 999;
+  display: flex;
+  align-items: right;
+  transform: translateX(100%);
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+
+    .listItem {
+      list-style: none;
     }
   }
 }

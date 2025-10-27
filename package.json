@@ -10,11 +10,13 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "hamburger-react": "^2.5.2",
     "mailparser": "^3.7.5",
     "moment": "^2.30.1",
     "next": "15.5.6",
     "node-html-parser": "^7.0.1",
     "react": "19.1.0",
+    "react-burger-menu": "^3.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0",
     "react-spinners": "^0.17.0",
@@ -28,6 +30,7 @@
     "@types/node": "^20.19.22",
     "@types/nodemailer": "^7.0.2",
     "@types/react": "^19",
+    "@types/react-burger-menu": "^2.8.7",
     "@types/react-dom": "^19",
     "typescript": "^5"
   }

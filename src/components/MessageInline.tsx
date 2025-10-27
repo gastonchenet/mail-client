@@ -29,27 +29,33 @@ export default function MessageInline({ data }: MessageInlineProps) {
         href={`/mail/${message.id}`}
         className={selected ? styles.selectedMail : styles.mail}
       >
-        <div className={styles.buttons}>
-          <button className={styles.button} onClick={toggleSelected}>
-            {selected ? (
-              <MdCheckBox className={styles.selected} size={16} />
-            ) : (
-              <MdCheckBoxOutlineBlank className={styles.selector} size={16} />
-            )}
-          </button>
-          <StarButton
-            messageId={data.id}
-            initialValue={data.starred}
-            size={16}
-            className={styles.button}
-          />
+        <div className={styles.mailInlineWrapper}>
+          <div className={styles.buttons}>
+            <button className={styles.button} onClick={toggleSelected}>
+              {selected ? (
+                <MdCheckBox className={styles.selected} size={16} />
+              ) : (
+                <MdCheckBoxOutlineBlank className={styles.selector} size={16} />
+              )}
+            </button>
+            <StarButton
+              messageId={data.id}
+              initialValue={data.starred}
+              size={16}
+              className={styles.button}
+            />
+          </div>
+          <Address name={message.sender.name} email={message.sender.email} />
+          <p className={styles.previewDesktop}>
+            <span className={styles.subject}>{message.subject}</span> -{" "}
+            <span className={styles.body}>{message.preview || "No body"}</span>
+          </p>
+          <p className={styles.date}>{moment(message.date).format("MMM D")}</p>
         </div>
-        <Address name={message.sender.name} email={message.sender.email} />
-        <p className={styles.preview}>
+        <p className={styles.previewMobile}>
           <span className={styles.subject}>{message.subject}</span> -{" "}
           <span className={styles.body}>{message.preview || "No body"}</span>
         </p>
-        <p className={styles.date}>{moment(message.date).format("MMM D")}</p>
       </Link>
     </li>
   );

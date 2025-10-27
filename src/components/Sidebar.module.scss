@@ -8,6 +8,10 @@
   height: 100dvh;
   padding-inline: 1rem;
 
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
   .sendMailButton {
     display: flex;
     align-items: center;
