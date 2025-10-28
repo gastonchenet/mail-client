@@ -3,7 +3,7 @@
 import { MdMarkunreadMailbox } from "react-icons/md";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
 import {
   FaInbox,
@@ -11,9 +11,23 @@ import {
   FaRegStar,
   FaRegTrashAlt,
 } from "react-icons/fa";
+import { usePathname } from "next/navigation";
+
+enum PageLink {
+  Inbox = "/",
+  Starred = "/starred",
+  Sent = "/sent",
+  Trash = "/trash",
+}
 
 export default function Navbar() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setSidebarVisible(false);
+  }, [pathname]);
 
   return (
     <React.Fragment>
@@ -25,31 +39,57 @@ export default function Navbar() {
           </h1>
         </Link>
         <div className={styles.hamburgerContainer}>
-          <Hamburger size={24} />
+          <Hamburger
+            size={24}
+            onToggle={setSidebarVisible}
+            toggled={sidebarVisible}
+          />
         </div>
       </nav>
-      <aside className={styles.links}>
+      <aside className={sidebarVisible ? styles.visibleLinks : styles.links}>
         <ul className={styles.list}>
           <li className={styles.listItem}>
-            <Link href="/" className={styles.link}>
+            <Link
+              href={PageLink.Inbox}
+              className={
+                pathname === PageLink.Inbox ? styles.selectedLink : styles.link
+              }
+            >
               <FaInbox />
               <span>Inbox</span>
             </Link>
           </li>
           <li className={styles.listItem}>
-            <Link href="/starred" className={styles.link}>
+            <Link
+              href={PageLink.Starred}
+              className={
+                pathname === PageLink.Starred
+                  ? styles.selectedLink
+                  : styles.link
+              }
+            >
               <FaRegStar />
               <span>Starred</span>
             </Link>
           </li>
           <li className={styles.listItem}>
-            <Link href="/sent" className={styles.link}>
+            <Link
+              href={PageLink.Sent}
+              className={
+                pathname === PageLink.Sent ? styles.selectedLink : styles.link
+              }
+            >
               <FaRegPaperPlane />
               <span>Sent</span>
             </Link>
           </li>
           <li className={styles.listItem}>
-            <Link href="/trash" className={styles.link}>
+            <Link
+              href={PageLink.Trash}
+              className={
+                pathname === PageLink.Trash ? styles.selectedLink : styles.link
+              }
+            >
               <FaRegTrashAlt />
               <span>Trash</span>
             </Link>

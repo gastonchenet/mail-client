@@ -40,13 +40,15 @@
   top: 4rem;
   right: 0;
   bottom: 0;
-  padding: 1rem;
+  padding-inline: 1rem;
   background: variables.$background-primary;
   border-left: 1px solid variables.$border-primary;
   z-index: 999;
   display: flex;
   align-items: right;
   transform: translateX(100%);
+  transition: 0.2s ease;
+  min-width: 60%;
 
   @media screen and (max-width: 768px) {
     display: block;
@@ -55,9 +57,29 @@
   .list {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 
     .listItem {
       list-style: none;
+
+      .link,
+      .selectedLink {
+        color: variables.$text-secondary;
+        display: flex;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: variables.$background-secondary;
+        border-radius: 0.5rem;
+      }
+
+      .selectedLink {
+        border: 1px solid rgba(variables.$accent, 0.5);
+        background: rgba(variables.$accent, 0.1);
+      }
     }
   }
+}
+
+.visibleLinks {
+  transform: translateX(0);
 }
