@@ -31,7 +31,7 @@ export default class Router {
             "(?<$1>[a-zA-Z0-9._-]+)"
           );
 
-          regex = new RegExp("^" + parsedPathname);
+          regex = new RegExp("^" + parsedPathname + "$");
         }
 
         const matches = url.pathname.match(regex);

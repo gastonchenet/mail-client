@@ -104,7 +104,7 @@ router.post("/messages", async ({ request, env }) => {
     const subject = formData.get("subject");
     const textContent = formData.get("text");
     const htmlContent = formData.get("html");
-    const trackMessage = formData.get("trackMessage") ?? false;
+    const trackMessage = formData.get("trackMessage") === "1";
     const attachments = formData.getAll("attachment");
     const preview = (textContent || "").substring(0, 200).trim();
     const createdAt = new Date().toISOString();

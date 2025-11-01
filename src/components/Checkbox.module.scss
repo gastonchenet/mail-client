@@ -1,0 +1,48 @@
+@use "../app/variables.scss" as variables;
+
+.checkboxLabel {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: variables.$text-secondary;
+  position: relative;
+
+  .checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid variables.$border-tertiary;
+    border-radius: 3px;
+    transition: 0.3s ease;
+    display: grid;
+    place-items: center;
+
+    &:checked {
+      border-color: variables.$accent;
+      background: variables.$accent;
+    }
+
+    &:focus {
+      outline: 2px solid rgba(variables.$accent, 0.5);
+      outline-offset: 2px;
+    }
+  }
+
+  .checkboxSvg {
+    position: absolute;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease 0.1s;
+    pointer-events: none;
+    transform: translate(20%, 5%);
+  }
+
+  &:has(.checkbox:checked) .checkboxSvg {
+    stroke-dashoffset: 0;
+  }
+}

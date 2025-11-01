@@ -7,6 +7,7 @@ type Options = {
   text: string;
   html: string;
   attachments: File[];
+  trackMessage: boolean;
 };
 
 export default async function sendMessage(options: Options) {
@@ -29,6 +30,7 @@ export default async function sendMessage(options: Options) {
   options.cc.forEach((cc) => formData.append("cc", cc));
 
   formData.append("subject", options.subject);
+  formData.append("trackMessage", options.trackMessage ? "1" : "0");
   formData.append("text", options.text);
   formData.append("html", options.html);
 

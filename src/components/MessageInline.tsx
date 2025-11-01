@@ -11,6 +11,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import StarButton from "./StarButton";
 import { USER_EMAIL } from "@/constants/User";
 import { FaEye } from "react-icons/fa";
+import Checkbox from "./Checkbox";
 
 type MessageInlineProps = {
   data: RawMessage;
@@ -20,9 +21,8 @@ export default function MessageInline({ data }: MessageInlineProps) {
   const [selected, setSelected] = useState(false);
   const message = parseMessage(data);
 
-  const toggleSelected = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSelected((prev) => !prev);
+  const toggleSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelected(e.target.checked);
   };
 
   return (
@@ -39,13 +39,14 @@ export default function MessageInline({ data }: MessageInlineProps) {
       >
         <div className={styles.mailInlineWrapper}>
           <div className={styles.buttons}>
-            <button className={styles.button} onClick={toggleSelected}>
+            <Checkbox onChange={toggleSelected} size={13} />
+            {/* <button className={styles.button} onClick={toggleSelected}>
               {selected ? (
                 <MdCheckBox className={styles.selected} size={16} />
               ) : (
                 <MdCheckBoxOutlineBlank className={styles.selector} size={16} />
               )}
-            </button>
+            </button> */}
             <StarButton
               messageId={data.id}
               initialValue={data.starred}

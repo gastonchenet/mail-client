@@ -34,7 +34,9 @@ export default async function Page({ params }: PageProps) {
         <div className={styles.metadata}>
           <h2 className={styles.subject}>{parsed.subject}</h2>
           <p className={styles.date}>
-            {moment(parsed.date?.toISOString()).format("dddd D MMMM YYYY")}
+            {moment(parsed.date?.toISOString()).format(
+              "dddd, D MMMM YYYY, HH:mm"
+            )}
           </p>
         </div>
         <div className={styles.addresses}>

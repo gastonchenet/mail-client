@@ -42,6 +42,7 @@ import { toHTMLContent, toTextContent } from "@/utils/parseHtmlContent";
 import sendMessage from "@/api/sendMessage";
 import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import { useRouter, useSearchParams } from "next/navigation";
+import Checkbox from "@/components/Checkbox";
 
 type CustomText = {
   text: string;
@@ -202,6 +203,7 @@ export default function Page() {
   const [toAddresses, setToAddresses] = useState<Set<string>>(new Set());
   const [ccAddresses, setCcAddresses] = useState<Set<string>>(new Set());
   const [subject, setSubject] = useState("");
+  const [track, setTrack] = useState(false);
 
   useLayoutEffect(() => {
     const recipient = params.get("to");
@@ -249,6 +251,7 @@ export default function Page() {
       text: toTextContent(value),
       html: toHTMLContent(value),
       attachments,
+      trackMessage: track,
     });
 
     setSending(false);
@@ -327,6 +330,10 @@ export default function Page() {
           </div>
         </Slate>
       </div>
+      <Checkbox
+        label="Track seen"
+        onChange={(e) => setTrack(e.target.checked)}
+      />
       <div className={styles.actionButtons}>
         <button
           className={sending ? styles.sendingButton : styles.sendButton}
