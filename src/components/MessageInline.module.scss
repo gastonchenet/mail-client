@@ -105,6 +105,23 @@
         font-size: 0.8rem;
         white-space: nowrap;
       }
+
+      .eyeContainer {
+        background: #de2647;
+        height: 1.5rem;
+        border-radius: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding-inline: 0.5rem;
+        font-size: 0.8rem;
+        margin-left: auto;
+      }
+
+      &:has(.eyeContainer) .date {
+        margin-left: 0;
+      }
     }
   }
 

@@ -104,6 +104,7 @@ router.post("/messages", async ({ request, env }) => {
     const subject = formData.get("subject");
     const textContent = formData.get("text");
     const htmlContent = formData.get("html");
+    const trackMessage = formData.get("trackMessage") ?? false;
     const attachments = formData.getAll("attachment");
     const preview = (textContent || "").substring(0, 200).trim();
     const createdAt = new Date().toISOString();
@@ -174,6 +175,13 @@ router.post("/messages", async ({ request, env }) => {
       )
       .run();
 
+    if (trackMessage) {
+      mailOptions.html += /* HTML */ `<img
+        src="${env.API_BASE}/messages/${id}/seen-pixel"
+        alt="pixel"
+      />`;
+    }
+
     await transporter.sendMail(mailOptions);
     transporter.close();
 
@@ -184,7 +192,9 @@ router.post("/messages", async ({ request, env }) => {
   }
 });
 
-router.get("/messages/:messageId", async ({ params, env }) => {
+router.get("/messages/:messageId", async ({ request, params, env }) => {
+  const address = request.headers.get("X-User-Email");
+
   const id = params.messageId;
   const email = await env.DB.prepare(
     /* SQL */ `SELECT * FROM messages WHERE id = ?`
@@ -198,9 +208,11 @@ router.get("/messages/:messageId", async ({ params, env }) => {
   const obj = await env.MAIL_BUCKET.get(r2Key);
   if (!obj) return new Response("Message raw not found", { status: 404 });
 
-  if (!email.seen) {
-    await env.DB.prepare(/* SQL */ `UPDATE messages SET seen = 1 WHERE id = ?`)
-      .bind(id)
+  if (!email.seen_at && !email.sender.includes(address)) {
+    await env.DB.prepare(
+      /* SQL */ `UPDATE messages SET seen_at = ? WHERE id = ?`
+    )
+      .bind(new Date().toISOString(), id)
       .run();
   }
 
@@ -242,7 +254,7 @@ router.delete("/messages/:messageId", async ({ params, env }) => {
   return new Response("OK");
 });
 
-router.post("/trash/:messageId/recover", async ({ params, env }) => {
+router.post("/messages/:messageId/recover", async ({ params, env }) => {
   const id = params.messageId;
 
   await env.DB.prepare(
@@ -271,5 +283,33 @@ router.post("/messages/:messageId/star", async ({ params, env }) => {
 
   return new Response("OK");
 });
+
+router.get(
+  "/messages/:messagesId/seen-pixel",
+  async ({ params, env }) => {
+    const pixel = new Response(
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NgAAIAAAUAAR4f7BQAAAAASUVORK5CYII=",
+      { headers: { "Content-Type": "image/png" } }
+    );
+
+    const id = params.messageId;
+    const email = await env.DB.prepare(
+      /* SQL */ `SELECT seen_at FROM messages WHERE id = ?`
+    )
+      .bind(id)
+      .first();
+
+    if (!email) return pixel;
+
+    await env.DB.prepare(
+      /* SQL */ `UPDATE messages SET seen_at = ? WHERE id = ?`
+    )
+      .bind(new Date().toISOString(), id)
+      .run();
+
+    return pixel;
+  },
+  true
+);
 
 export default router;

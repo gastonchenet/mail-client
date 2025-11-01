@@ -1,3 +1,4 @@
+import { USER_EMAIL } from "@/constants/User";
 import type { RawMessage } from "@/types/message";
 
 type MessageData = {
@@ -18,6 +19,7 @@ export default async function getMessage(
     headers: {
       "CF-Access-Client-Id": process.env.CF_ACCESS_CLIENT_ID!,
       "CF-Access-Client-Secret": process.env.CF_ACCESS_CLIENT_SECRET!,
+      "X-User-Email": USER_EMAIL,
     },
   });
 

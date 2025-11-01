@@ -9,7 +9,7 @@ export default function parseMessage(message: RawMessage): Message {
     subject: message.subject,
     preview: message.preview,
     starred: message.starred,
-    seen: message.seen,
+    seen_at: message.seen_at ? moment(message.seen_at) : null,
     date: moment(message.date),
     created_at: moment(message.created_at),
     deleted_at: moment(message.deleted_at),

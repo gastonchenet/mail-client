@@ -9,6 +9,8 @@ import React, { useState } from "react";
 import Address from "./Address";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import StarButton from "./StarButton";
+import { USER_EMAIL } from "@/constants/User";
+import { FaEye } from "react-icons/fa";
 
 type MessageInlineProps = {
   data: RawMessage;
@@ -24,7 +26,13 @@ export default function MessageInline({ data }: MessageInlineProps) {
   };
 
   return (
-    <li className={data.seen ? styles.listElement : styles.listElementUnseen}>
+    <li
+      className={
+        data.seen_at || data.sender.includes(USER_EMAIL)
+          ? styles.listElement
+          : styles.listElementUnseen
+      }
+    >
       <Link
         href={`/mail/${message.id}`}
         className={selected ? styles.selectedMail : styles.mail}
@@ -50,6 +58,12 @@ export default function MessageInline({ data }: MessageInlineProps) {
             <span className={styles.subject}>{message.subject}</span> -{" "}
             <span className={styles.body}>{message.preview || "No body"}</span>
           </p>
+          {data.sender.includes(USER_EMAIL) && data.seen_at && (
+            <div className={styles.eyeContainer}>
+              <FaEye />
+              <span>Seen</span>
+            </div>
+          )}
           <p className={styles.date}>{moment(message.date).format("MMM D")}</p>
         </div>
         <p className={styles.previewMobile}>

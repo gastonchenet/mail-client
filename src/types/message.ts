@@ -6,10 +6,10 @@ export type RawMessage = {
   subject: string;
   preview: string;
   starred: boolean;
-  seen: boolean;
+  seen_at: string | null;
   date: string;
   created_at: string;
-  deleted_at: string;
+  deleted_at: string | null;
 };
 
 export type User = {
@@ -23,7 +23,7 @@ export type Message = {
   subject: string;
   preview: string;
   starred: boolean;
-  seen: boolean;
+  seen_at: Moment | null;
   date: Moment;
   created_at: Moment;
   deleted_at: Moment;

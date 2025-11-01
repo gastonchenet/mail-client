@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import Hamburger from "hamburger-react";
 import {
   FaInbox,
+  FaPen,
   FaRegPaperPlane,
   FaRegStar,
   FaRegTrashAlt,
@@ -47,6 +48,10 @@ export default function Navbar() {
         </div>
       </nav>
       <aside className={sidebarVisible ? styles.visibleLinks : styles.links}>
+        <Link href="/send" className={styles.sendMailButton}>
+          <FaPen className={styles.icon} />
+          <span>Send a mail</span>
+        </Link>
         <ul className={styles.list}>
           <li className={styles.listItem}>
             <Link

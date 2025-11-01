@@ -1,4 +1,5 @@
 @use "../app/variables.scss" as variables;
+@use "sass:color" as color;
 
 .navbar {
   height: 4rem;
@@ -49,9 +50,34 @@
   transform: translateX(100%);
   transition: 0.2s ease;
   min-width: 60%;
+  flex-direction: column;
+  gap: 1.5rem;
 
   @media screen and (max-width: 768px) {
     display: block;
+  }
+
+  .sendMailButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 0.75rem;
+    width: 100%;
+    background: variables.$background-tertiary;
+    color: variables.$text-primary;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s ease;
+    gap: 0.7rem;
+
+    &:hover {
+      background: color.adjust(variables.$background-tertiary, $lightness: +5%);
+    }
+
+    .icon {
+      opacity: 0.25;
+    }
   }
 
   .list {
